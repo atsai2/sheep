@@ -1,2 +1,1 @@
-# sheep
-Project Repo for team sheep
+# Poker by Sheep
