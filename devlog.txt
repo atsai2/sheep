@@ -2,3 +2,6 @@ andrewT -- 2026-01-12 11:00 AM INITIAL DD REVIEW
 -reformatted table to be on one page
 -added to justification of frontend framework
 -revamped tasks to be more accurate
+
+jiefengO -- 2026-01-13 6:00
+-Experimenting with canvas in game.html
