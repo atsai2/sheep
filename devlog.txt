@@ -5,3 +5,6 @@ andrewT -- 2026-01-12 11:00 AM INITIAL DD REVIEW
 
 jiefengO -- 2026-01-13 6:00
 -Experimenting with canvas in game.html
+
+andrewT -- 2026-01-13 10:50
+-Finishing DB and Flask

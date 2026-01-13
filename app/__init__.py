@@ -10,6 +10,7 @@ from urllib.request import Request, urlopen
 import pprint
 import os
 import re
+import db
 # Initialize databases
 
 app = Flask(__name__)
@@ -31,22 +32,20 @@ def register():
     if request.method == 'POST':
         user = request.form['username'].strip()
         pswd = request.form['password'].strip()
-        nation = None
-        money = None
 
         if(not user or not pswd):
             flash("WARNING: One of the fields cannot be empty!")
             return redirect(url_for('register'))
 
         # add database registration here
-        if db.add_user(user, pswd, nation, money):
+        if db.add_user(user, pswd):
             flash(f"Registration Successful! Welcome, {user}. Please log in.")
             return redirect(url_for('login'))
         else:
             flash("Username already exists. Please choose another.")
             return redirect(url_for('register'))
         return redirect(url_for('login'))
-    return render_template('register.html')
+    return render_template('create_account.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -66,7 +65,6 @@ def login():
         session['username'] = user
         return redirect(url_for('profile'))
     return render_template("login.html")
-@app.route("/logout", methods=['GET', 'POST'])
 
 @app.route("/logout")
 def logout():
