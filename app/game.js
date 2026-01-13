@@ -6,7 +6,7 @@ function redraw(deck, index)
     temp_arr.push(info_to_num(deck[i]));
   }
   temp_arr.pop(index);
-  
+
   let rand_num = temp_arr[0];
   while(temp_arr.includes(rand_num))
   {
@@ -107,37 +107,37 @@ function test_hand_states()
   // console.log(in_state);
   // console.log("-----------------------------");
 
-  // // Straight
-  // arr = [
-  //   [1,0],
-  //   [2,0],
-  //   [3,1],
-  //   [4,2],
-  //   [5,3]
-  // ];
-  // console.log("Hand:");
-  // print_2d(arr);
-  // let in_state = [];
-  // console.log("Expected: [4,5]");
-  // console.log(get_hand_state(arr, in_state));
-  // console.log(in_state);
-  // console.log("-----------------------------");
+  // Straight
+  arr = [
+    [1,0],
+    [2,0],
+    [3,1],
+    [4,2],
+    [5,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  in_state = [];
+  console.log("Expected: [4,5]");
+  console.log(get_hand_state(arr, in_state));
+  console.log(in_state);
+  console.log("-----------------------------");
 
-  // // Flush
-  // arr = [
-  //   [1,0],
-  //   [2,0],
-  //   [3,0],
-  //   [4,0],
-  //   [7,0]
-  // ];
-  // console.log("Hand:");
-  // print_2d(arr);
-  // let in_state = [];
-  // console.log("Expected: [5,7]");
-  // console.log(get_hand_state(arr, in_state));
-  // console.log(in_state);
-  // console.log("-----------------------------");
+  // Flush
+  arr = [
+    [1,0],
+    [2,0],
+    [3,0],
+    [4,0],
+    [7,0]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  let in_state = [];
+  console.log("Expected: [5,7]");
+  console.log(get_hand_state(arr, in_state));
+  console.log(in_state);
+  console.log("-----------------------------");
 
   // // Full House
   // arr = [
@@ -287,14 +287,14 @@ function get_hand_state(hand, in_state)
 
   if(straight != 0)
   {
-    in_state.push(-1);
+    for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = straight;
     hand_state[0] = 4;
   }
 
   if(flush != 0)
   {
-    in_state.push(-1);
+    for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = flush;
 
     if(hand_state[0] < 5){hand_state[0] = 5;}
