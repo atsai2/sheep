@@ -1,176 +1,318 @@
 function test_hand_states()
 {
   // High Card
-  let arr = [1,2,3,4,13]
-  console.log("Hand: " + arr + "\nExpected Result: [0,4]");
+  let arr = [
+    [1,0],
+    [2,0],
+    [3,1],
+    [4,2],
+    [7,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [0,7]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // One Pair
-  arr = [1,1,3,4,13]
-  console.log("Hand: " + arr + "\nExpected Result: [1,1]");
+  arr = [
+    [1,0],
+    [1,0],
+    [3,1],
+    [4,2],
+    [7,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [1,1]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Two Pair
-  arr = [1,1,3,3,13]
-  console.log("Hand: " + arr + "\nExpected Result: [2,3]");
+  arr = [
+    [1,0],
+    [1,0],
+    [3,1],
+    [3,2],
+    [7,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [2,3]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Three of a Kind
-  arr = [1,1,1,4,13]
-  console.log("Hand: " + arr + "\nExpected Result: [3,1]");
+  arr = [
+    [1,0],
+    [1,0],
+    [1,1],
+    [4,2],
+    [7,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [3,1]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Straight
-  arr = [1,2,3,4,18]
-  console.log("Hand: " + arr + "\nExpected Result: [4,5]");
+  arr = [
+    [1,0],
+    [2,0],
+    [3,1],
+    [4,2],
+    [5,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [4,5]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Flush
-  arr = [1,1,3,4,7]
-  console.log("Hand: " + arr + "\nExpected Result: [5,7]");
+  arr = [
+    [1,0],
+    [2,0],
+    [3,0],
+    [4,0],
+    [7,0]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [5,7]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Full House
-  arr = [1,1,3,3,3]
-  console.log("Hand: " + arr + "\nExpected Result: [6,3]");
+  arr = [
+    [1,0],
+    [1,0],
+    [1,1],
+    [3,2],
+    [3,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [6,1]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Four of a Kind
-  arr = [1,1,1,1,13]
-  console.log("Hand: " + arr + "\nExpected Result: [7,1]");
+  arr = [
+    [1,0],
+    [1,0],
+    [1,1],
+    [1,2],
+    [7,3]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [7,1]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Straight Flush
-  arr = [1,2,3,4,5]
-  console.log("Hand: " + arr + "\nExpected Result: [8,5]");
+  arr = [
+    [1,0],
+    [2,0],
+    [3,0],
+    [4,0],
+    [5,0]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [8,5]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
 
   // Royal Flush
-  arr = [8,9,10,11,12]
-  console.log("Hand: " + arr + "\nExpected Result: [9,12]");
+  arr = [
+    [8,0],
+    [9,0],
+    [10,0],
+    [11,0],
+    [12,0]
+  ];
+  console.log("Hand:");
+  print_2d(arr);
+  console.log("Expected: [9,12]");
   console.log(get_hand_state(arr));
+  console.log("-----------------------------");
+
+
 }
 
 
-function get_hand_state(hand){
-
-hand = sort_hand(hand);
-console.log(hand);
-let hand_state = [0, hand[4]];
-
-
-
-let flush = 0;
-let straight = 0;
-
-let dupe_list = check_dupes(hand);
-
-for(let i = 0; i < hand.length; i++)
+function get_hand_state(hand)
 {
-  let card_num = hand[i];
-  let card_info = get_card_info(card_num);
-  if(i == 0)
+  hand = hand.sort(sort_hand);
+  // print_2d(hand);
+
+  let hand_state = [0,hand[4][0]];
+
+  let straight = 0;
+  let flush = 0;
+
+  for(let i = 1; i < hand.length; i++)
   {
-    for(let iterator = 1; iterator < 5; iterator++)
+    if(hand[i][0] == hand[0][0] + i) // Checks if sequential
     {
-      let check_card = get_card_info(hand[iterator]);
-      let check_card_num = (check_card[1] * 13) + check_card[0];
-    //  console.log(check_card);
-      if(check_card_num == card_num + iterator)
-        {
-      //  console.log("straight")
-          straight = check_card[0]
-        }
-      else
-        {
-          straight = 0;
-        }
-      if(check_card[1] == card_info[1])
-        {
-    //    console.log("flush")
-          flush = check_card[0]
-        }
-      else
-        {
-          flush = 0;
-        }
+      straight = hand[i][0];
+    }
+    else
+    {
+      straight = 0;
+    }
+
+    if(hand[i][1] == hand[0][1]) // Checks if same suit
+    {
+      flush = hand[i][0];
+    }
+    else
+    {
+      flush = 0;
     }
   }
 
-}
-  let final_list = sort_dupes(dupe_list);
-  let num_dupes = final_list.length;
+  let dupe_dict = check_dupes(hand);
+  let dupe_list = dict_to_2d(dupe_dict);
+  dupe_list = dupe_list.sort(sort_dupes);
+  //print_2d(dupe_list);
+
+  let num_dupes = dupe_list.length;
 
   if(num_dupes > 0)
+  {
+    hand_state[1] = dupe_list[num_dupes - 1][0];
+    let sum = 0;
+    for(let i = 0; i < num_dupes; i++)
     {
-      let sum = 0;
-      for(let i = 0; i < num_dupes; i++)
+      sum += dupe_list[i][1];
+    }
+    if(num_dupes == 1)
+    {
+      if(sum == 2)
       {
-        sum+= final_list[i][0];
+        hand_state[0] = 1;
       }
-
-      hand_state[1] = final_list[num_dupes - 1][1];
-      if(num_dupes == 1)
-        {
-          if(sum == 2)
-            {
-              hand_state[0] = 1;
-            }
-          if(sum == 3)
-            {
-              hand_state[0] = 3;
-            }
-          if(sum == 4)
-            {
-              hand_state[0] = 7;
-            }
-
-        }
-      if(num_dupes == 2)
-        {
-          if(sum == 4)
-            {
-              hand_state[0] = 2;
-            }
-          if(sum == 5)
-            {
-              hand_state[0] = 6;
-            }
-        }
+      if(sum == 3)
+      {
+        hand_state[0] = 3;
+      }
+      if(sum == 4)
+      {
+        hand_state[0] = 7;
+      }
     }
-  if(straight != 0)
+    if(num_dupes == 2)
     {
-      hand_state[1] = straight;
-      if(hand_state[0] < 4){hand_state[0] = 4;} 
+      if(sum == 4)
+      {
+        hand_state[0] = 2;
+      }
+      if(sum == 5)
+      {
+        hand_state[0] = 6;
+      }
     }
+  }
+
+  if(straight != 0)
+  {
+    hand_state[1] = straight;
+    hand_state[0] = 4;
+  }
 
   if(flush != 0)
-    {
-      hand_state[1] = flush;
+  {
+    hand_state[1] = flush;
 
-      if(straight != 0)
+    if(hand_state[0] < 5){hand_state[0] = 5;}
+    if(straight != 0)
+    {
+      if(flush == 12)
       {
-        if(flush == 11)
-          {
-            hand_state[0] = 9
-          }
-        else
-          {
-            hand_state[0] = 8;
-          }
+        hand_state[0] = 9;
       }
       else
-        {
-          if(hand_state[0] < 5){hand_state[0] = 5;}
-        }
+      {
+        hand_state[0] = 8;
+      }
     }
-
-  hand_state[1] = get_val(hand_state[1]);
-
-
+  }
 
   return hand_state;
 }
+
+function check_dupes(hand)
+{
+  let dupe_list = {};
+
+  for(let i = 0; i < hand.length; i++)
+  {
+    if(hand[i][0] in dupe_list)
+    {
+      dupe_list[hand[i][0]]++;
+    }
+    else
+    {
+      dupe_list[hand[i][0]] = 1;
+    }
+  }
+
+  for(let i = 0; i < hand.length;i++)
+  {
+    if(dupe_list[hand[i][0]] == 1)
+    {
+      delete dupe_list[hand[i][0]];
+    }
+  }
+
+  return dupe_list;
+}
+
+function dict_to_2d(dict)
+{
+  let final_list = [];
+
+  let keys = Object.keys(dict);
+
+  for(let i = 0; i < keys.length; i++)
+  {
+    final_list.push([keys[i],dict[keys[i]]]);
+  }
+
+  return final_list;
+}
+
+function sort_hand(x, y)
+{
+  if(x[0] == y[0])
+    {
+      return 0;
+    }
+    else
+      {
+        return (x[0] < y[0]) ? -1 : 1;
+      }
+}
+
+function sort_dupes(x, y)
+{
+  if(x[1] == y[1])
+    {
+      return 0;
+    }
+    else
+      {
+        return (x[1] < y[1]) ? -1 : 1;
+      }
+}
+
+
+
+
 
 function get_val(card_num)
 {
@@ -184,72 +326,15 @@ function get_suit(card_num)
   return card_info[1];
 }
 
-function check_dupes(hand){
-let dupe_list = {};
-
-for(let i = 0; i < hand.length; i++)
+function print_2d(arr)
 {
-  if(hand[i] in dupe_list)
-    {
-      dupe_list[hand[i]]+= 1;
-    }
-  else
-    {
-      dupe_list[hand[i]] = 1;
-    }
-}
-
-for(let i  = 0; i < hand.length;i++)
-{
-  if(dupe_list[hand[i]] == 1)
-    {
-      delete dupe_list[hand[i]]
-    }
-}
-  return dupe_list;
+  for(let i = 0; i < arr.length; i++)
+  {
+    console.log(arr[i]);
+  }
 }
 
 function get_card_info(card_num)
 {
   return [card_num % 13, Math.floor(card_num / 13)];
-}
-
-function sort_dupes(dupes_list)
-{
-  let keys = Object.keys(dupes_list);
-
-  let final_list = [];
-
-  for(let i = 0;i < keys.length; i++)
-  {
-    final_list[i] = [dupes_list[keys[i]], keys[i]];
-  }
-
-  final_list = final_list.sort();
-
-  return final_list;
-}
-
-function sort_hand(hand)
-{
-  let temp_list = [];
-
-  for(let i = 0; i < hand.length; i++)
-  {
-    let card_info = get_card_info(hand[i]);
-  //  console.log(card_info);
-    temp_list[i] = [card_info[0] % 13, (card_info[1] * 13) + card_info[0]];
-  }
-  temp_list = temp_list.sort();
-
-
-  let final_list = [];
-
-  for(let i = 0; i < temp_list.length; i++)
-  {
-    final_list[i] = temp_list[i][1];
-  }
-
-
-  return final_list;
 }
