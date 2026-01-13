@@ -45,7 +45,7 @@ def register():
             flash("Username already exists. Please choose another.")
             return redirect(url_for('register'))
         return redirect(url_for('login'))
-    return render_template('register.html')
+    return render_template('create_account.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -65,7 +65,6 @@ def login():
         session['username'] = user
         return redirect(url_for('profile'))
     return render_template("login.html")
-@app.route("/logout", methods=['GET', 'POST'])
 
 @app.route("/logout")
 def logout():
