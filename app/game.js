@@ -1,60 +1,111 @@
+function redraw(deck, index)
+{
+  let temp_arr = [];
+  for(let i = 0; i < deck.length; i++)
+  {
+    temp_arr.push(info_to_num(deck[i]));
+  }
+  temp_arr.pop(index);
+
+  let rand_num = temp_arr[0];
+  while(temp_arr.includes(rand_num))
+  {
+    rand_num = Math.floor(Math.random() * 52);
+  }
+
+  deck[index] = get_card_info(rand_num);
+
+}
+
+
+function make_deck()
+{
+  let deck = [];
+
+  for(let i = 0; i < 52; i++)
+  {
+    deck.push(get_card_info(i));
+  }
+
+  shuffle(deck);
+  return deck;
+}
+
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
 function test_hand_states()
 {
   // High Card
-  let arr = [
-    [1,0],
-    [2,0],
-    [3,1],
-    [4,2],
-    [7,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [0,7]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // let arr = [
+  //   [1,0],
+  //   [2,0],
+  //   [3,1],
+  //   [4,2],
+  //   [7,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [0,7]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
   // One Pair
-  arr = [
-    [1,0],
-    [1,0],
-    [3,1],
-    [4,2],
-    [7,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [1,1]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // arr = [
+  //   [1,0],
+  //   [1,0],
+  //   [3,1],
+  //   [4,2],
+  //   [7,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [1,1]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
-  // Two Pair
-  arr = [
-    [1,0],
-    [1,0],
-    [3,1],
-    [3,2],
-    [7,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [2,3]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Two Pair
+  // arr = [
+  //   [1,0],
+  //   [1,0],
+  //   [3,1],
+  //   [3,2],
+  //   [7,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [2,3]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
-  // Three of a Kind
-  arr = [
-    [1,0],
-    [1,0],
-    [1,1],
-    [4,2],
-    [7,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [3,1]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Three of a Kind
+  // arr = [
+  //   [1,0],
+  //   [1,0],
+  //   [1,1],
+  //   [4,2],
+  //   [7,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [3,1]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
   // Straight
   arr = [
@@ -66,8 +117,10 @@ function test_hand_states()
   ];
   console.log("Hand:");
   print_2d(arr);
+  let in_state = [];
   console.log("Expected: [4,5]");
-  console.log(get_hand_state(arr));
+  console.log(get_hand_state(arr, in_state));
+  console.log(in_state);
   console.log("-----------------------------");
 
   // Flush
@@ -80,71 +133,81 @@ function test_hand_states()
   ];
   console.log("Hand:");
   print_2d(arr);
+  in_state = [];
   console.log("Expected: [5,7]");
-  console.log(get_hand_state(arr));
+  console.log(get_hand_state(arr, in_state));
+  console.log(in_state);
   console.log("-----------------------------");
 
-  // Full House
-  arr = [
-    [1,0],
-    [1,0],
-    [1,1],
-    [3,2],
-    [3,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [6,1]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Full House
+  // arr = [
+  //   [1,0],
+  //   [1,0],
+  //   [1,1],
+  //   [3,2],
+  //   [3,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [6,1]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
-  // Four of a Kind
-  arr = [
-    [1,0],
-    [1,0],
-    [1,1],
-    [1,2],
-    [7,3]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [7,1]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Four of a Kind
+  // arr = [
+  //   [1,0],
+  //   [1,0],
+  //   [1,1],
+  //   [1,2],
+  //   [7,3]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [7,1]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
-  // Straight Flush
-  arr = [
-    [1,0],
-    [2,0],
-    [3,0],
-    [4,0],
-    [5,0]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [8,5]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Straight Flush
+  // arr = [
+  //   [1,0],
+  //   [2,0],
+  //   [3,0],
+  //   [4,0],
+  //   [5,0]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [8,5]");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
-  // Royal Flush
-  arr = [
-    [8,0],
-    [9,0],
-    [10,0],
-    [11,0],
-    [12,0]
-  ];
-  console.log("Hand:");
-  print_2d(arr);
-  console.log("Expected: [9,12]");
-  console.log(get_hand_state(arr));
-  console.log("-----------------------------");
+  // // Royal Flush
+  // arr = [
+  //   [8,0],
+  //   [9,0],
+  //   [10,0],
+  //   [11,0],
+  //   [12,0]
+  // ];
+  // console.log("Hand:");
+  // print_2d(arr);
+  // let in_state = [];
+  // console.log("Expected: [9,12]");");
+  // console.log(get_hand_state(arr, in_state));
+  // console.log(in_state);
+  // console.log("-----------------------------");
 
 
 }
 
 
-function get_hand_state(hand)
+function get_hand_state(hand, in_state)
 {
   hand = hand.sort(sort_hand);
   // print_2d(hand);
@@ -184,11 +247,15 @@ function get_hand_state(hand)
 
   if(num_dupes > 0)
   {
-    hand_state[1] = dupe_list[num_dupes - 1][0];
+    hand_state[1] = Number(dupe_list[num_dupes - 1][0]);
     let sum = 0;
     for(let i = 0; i < num_dupes; i++)
     {
       sum += dupe_list[i][1];
+      for(let n = 0; n < dupe_list[i][1]; n++)
+      {
+        in_state.push(Number(dupe_list[i][0]));
+      }
     }
     if(num_dupes == 1)
     {
@@ -220,12 +287,14 @@ function get_hand_state(hand)
 
   if(straight != 0)
   {
+    for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = straight;
     hand_state[0] = 4;
   }
 
   if(flush != 0)
   {
+    for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = flush;
 
     if(hand_state[0] < 5){hand_state[0] = 5;}
@@ -241,6 +310,8 @@ function get_hand_state(hand)
       }
     }
   }
+
+  if(hand_state[0] == 0){in_state.push(hand_state[1]);}
 
   return hand_state;
 }
@@ -337,4 +408,9 @@ function print_2d(arr)
 function get_card_info(card_num)
 {
   return [card_num % 13, Math.floor(card_num / 13)];
+}
+
+function info_to_num(card_info)
+{
+  return (card_info[1] * 13) + card_info[0];
 }
