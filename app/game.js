@@ -117,7 +117,7 @@ function test_hand_states()
   ];
   console.log("Hand:");
   print_2d(arr);
-  in_state = [];
+  let in_state = [];
   console.log("Expected: [4,5]");
   console.log(get_hand_state(arr, in_state));
   console.log(in_state);
@@ -133,7 +133,7 @@ function test_hand_states()
   ];
   console.log("Hand:");
   print_2d(arr);
-  let in_state = [];
+  in_state = [];
   console.log("Expected: [5,7]");
   console.log(get_hand_state(arr, in_state));
   console.log(in_state);
