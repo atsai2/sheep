@@ -1,20 +1,83 @@
-function redraw(deck, index)
+function test_bot_redraw()
 {
-  let temp_arr = [];
-  for(let i = 0; i < deck.length; i++)
+  let deck = make_deck();
+  let hand = draw_hand(deck);
+  print_2d(hand);
+
+  let in_state = [];
+  let hand_state = get_hand_state(hand, in_state);
+  console.log("Hand State: " + hand_state);
+  console.log("In State: " + in_state);
+
+  bot_redraw(hand, in_state, deck);
+  print_2d(hand);
+}
+
+function bot_redraw(hand, in_state, deck)
+{
+  let temp_arr = in_state;
+  let to_redraw = [];
+
+  for(let i = 0; i < hand.length;i++)
   {
-    temp_arr.push(info_to_num(deck[i]));
+    let is_in_state = 0;
+    for(let n = 0; n < temp_arr.length; n++)
+    {
+      if(info_to_num(hand[i]) == temp_arr[n])
+        {
+          is_in_state = 1;
+          delete temp_arr[n];
+          break;
+        }
+    }
+    if(is_in_state == 0)
+      {
+        to_redraw.push(i);
+      }
   }
-  temp_arr.pop(index);
 
-  let rand_num = temp_arr[0];
-  while(temp_arr.includes(rand_num))
+  for(let i = 0; i < to_redraw.length;i++)
   {
-    rand_num = Math.floor(Math.random() * 52);
+    redraw(hand, deck, i);
   }
+}
 
-  deck[index] = get_card_info(rand_num);
 
+
+function test_draw()
+{
+  let deck = make_deck();
+  console.log("-------------");
+  let hand = draw_hand(deck);
+  print_2d(hand);
+
+  let in_state = [];
+  let hand_state = get_hand_state(hand, in_state);
+  console.log("Hand State: " + hand_state);
+  console.log("In State: " + in_state);
+}
+
+function draw_hand(deck)
+{
+  let hand = [];
+  for(let i = 0; i < 5; i++)
+  {
+    draw_card(hand, deck)
+  }
+  return hand;
+}
+
+function draw_card(hand, deck)
+{
+  hand.push(deck[deck.length - 1]);
+  deck.pop();
+  hand.sort(sort_hand);
+}
+
+function redraw(hand, deck, index)
+{
+  hand.pop(index);
+  draw_card(hand,deck);
 }
 
 
@@ -219,22 +282,22 @@ function get_hand_state(hand, in_state)
 
   for(let i = 1; i < hand.length; i++)
   {
-    if(hand[i][0] == hand[0][0] + i) // Checks if sequential
+    if(straight >= 0 && hand[i][0] == hand[0][0] + i) // Checks if sequential
     {
       straight = hand[i][0];
     }
     else
     {
-      straight = 0;
+      straight = -1;
     }
 
-    if(hand[i][1] == hand[0][1]) // Checks if same suit
+    if(flush >= 0 && hand[i][1] == hand[0][1]) // Checks if same suit
     {
       flush = hand[i][0];
     }
     else
     {
-      flush = 0;
+      flush = -1;
     }
   }
 
@@ -285,20 +348,20 @@ function get_hand_state(hand, in_state)
     }
   }
 
-  if(straight != 0)
+  if(straight > 0)
   {
     for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = straight;
     hand_state[0] = 4;
   }
 
-  if(flush != 0)
+  if(flush > 0)
   {
     for(let n = 0; n < hand.length; n++){in_state.push(info_to_num(hand[n]));}
     hand_state[1] = flush;
 
     if(hand_state[0] < 5){hand_state[0] = 5;}
-    if(straight != 0)
+    if(straight > 0)
     {
       if(flush == 12)
       {

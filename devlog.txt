@@ -8,3 +8,6 @@ jiefengO -- 2026-01-13 6:00
 
 andrewT -- 2026-01-13 10:50
 -Finishing DB and Flask
+
+tudorG -- 2026-01-14 10:30
+-Fixing issues with getting poker hand state & redraw
