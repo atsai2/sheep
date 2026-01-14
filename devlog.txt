@@ -9,5 +9,9 @@ jiefengO -- 2026-01-13 6:00
 andrewT -- 2026-01-13 10:50
 -Finishing DB and Flask
 
+mustafaA -- 2026-01-14 02:00
+- Finished register/login pages 
+- Fixed pathing to image files
+
 tudorG -- 2026-01-14 10:30
 -Fixing issues with getting poker hand state & redraw
