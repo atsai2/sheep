@@ -1,20 +1,37 @@
-function redraw(deck, index)
+function test_draw()
 {
-  let temp_arr = [];
-  for(let i = 0; i < deck.length; i++)
+  let deck = make_deck();
+  console.log("-------------");
+  let hand = draw_hand(deck);
+  print_2d(hand);
+
+  let in_state = [];
+  let hand_state = get_hand_state(hand, in_state);
+  console.log(hand_state);
+  console.log(in_state);
+}
+
+function draw_hand(deck)
+{
+  let hand = [];
+  for(let i = 0; i < 5; i++)
   {
-    temp_arr.push(info_to_num(deck[i]));
+    draw_card(hand, deck)
   }
-  temp_arr.pop(index);
+  return hand;
+}
 
-  let rand_num = temp_arr[0];
-  while(temp_arr.includes(rand_num))
-  {
-    rand_num = Math.floor(Math.random() * 52);
-  }
+function draw_card(hand, deck)
+{
+  hand.push(deck[deck.length - 1]);
+  deck.pop();
+  hand.sort(sort_hand);
+}
 
-  deck[index] = get_card_info(rand_num);
-
+function redraw(hand, deck, index)
+{
+  hand.pop(index);
+  draw_card(hand,deck);
 }
 
 
