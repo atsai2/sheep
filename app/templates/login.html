@@ -18,33 +18,24 @@
 
   <div class="absolute inset-0 z-0">
     <div class="absolute inset-0 bg-black/60 z-10"></div>
-    <img src="static/images/city.jpg"  alt="City Background" class="w-full h-full object-cover">
+    <img src="../static/image/menu_bcg.jpg"  alt="City Background" class="w-full h-full object-cover">
   </div>
 
 
   <div class="relative z-20 h-full flex flex-col justify-center items-center px-4">
 
-    <div class="bg-black backdrop-blur-xl border border-white/10 p-10 rounded-2xl text-center max-w-md w-full shadow-2xl">
-      <h2 class="text-3xl mb-2 text-white">Welcome Back!</h2>
-      <p class="text-gray-400 mb-8">You have already logged in.</p>
-
-      <a href="./profile.html" class="block w-full btn-primary py-3 rounded-xl text-center">
-        View Profile
-      </a>
-    </div>
-
     <div class="bg-black backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-md flex flex-col gap-6">
 
     <div class="text-center">
       <h1 class="text-4xl font-bold tracking-wider">
-        <span class="text-blue-400">USER </span>LOGIN
+        <span class="text-green-400">USER </span><span class="text-red-400">LOGIN</span>
       </h1>
         <p class="text-blue-200/60 mt-2 text-xs uppercase tracking-widest">Into an existing account</p>
     </div>
 
     <form action="/login" method="POST" class="flex flex-col gap-5">
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-blue-300 uppercase ml-1 required">Username</label>
+        <label class="text-xs text-green-300 uppercase ml-1 required">Username</label>
         <input type="text"
           name="username"
           placeholder="Enter Username..."
@@ -53,7 +44,7 @@
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-xs text-blue-300 uppercase ml-1 required">Password</label>
+        <label class="text-xs text-green-300 uppercase ml-1 required">Password</label>
         <input type="password"
           name="password"
           placeholder="Enter Password..."
@@ -61,7 +52,7 @@
           required>
       </div>
 
-        <button type="submit" class="mt-2 w-full btn-primary py-3 rounded-xl text-lg tracking-widest">
+        <button type="submit" class="mt-2 w-full btn-primary py-3 rounded-xl text-lg tracking-widest text-blue-300">
           Login
         </button>
     </form>
@@ -73,7 +64,7 @@
           Register Here!
         </a>
       </p>
-      <a href="/" class="hover:text-white flex items-center justify-center gap-2 opacity-70 hover:opacity-100">
+      <a href="./home.html" class="hover:text-white flex items-center justify-center gap-2 opacity-70 hover:opacity-100">
         <i class="fa-solid fa-arrow-left text-xs"></i>
         Homepage
       </a>
