@@ -10,7 +10,7 @@ andrewT -- 2026-01-13 10:50
 -Finishing DB and Flask
 
 mustafaA -- 2026-01-14 02:00
-- Finished register/login pages 
+- Finished register/login pages
 - Fixed pathing to image files
 
 mustafaA -- 2026-01-14 20:0
@@ -22,3 +22,6 @@ tudorG -- 2026-01-14 10:30
 
 jiefengO -- 2026-01-14 11:00
 -Added img of poker table, player locations
+
+jiefengO -- 2026-01-15 12:35
+-Removed canvas, added table to reroll
