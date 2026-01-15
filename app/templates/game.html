@@ -7,13 +7,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <body>
-    <div style="display:none">
+    <!-- <div style="display:none">
       <img id="poker_table" width="220" height="277" src="../static/image/poker table3.png">
       <img id="yellow_back" width="975" height="1388" src="../static/image/yellow_back.png">
       <p id="starting_balance">{{starting_balance}}</p>
       <p id="min_bet">{{min_bet}}</p>
     </div>
-    <canvas id="canvas1" width="1000" height="500" style="width: 100%; border:1px solid #000000;"></canvas>
+    <canvas id="canvas1" width="1000" height="500" style="width: 100%; border:1px solid #000000;"></canvas> -->
 
     <script src = "../static/js/game.js"></script>
 
@@ -41,7 +41,7 @@
 
     <div>
       <!-- <p id="money" value={{currency}}></p> -->
-      <p id="money" value=1000>1000</p>
+      <button id="money" value="1000">1000</button>
     </div>
 
     <div>
@@ -49,10 +49,17 @@
       <!-- <button id="fold">Fold</button> -->
       <button id="raise" class = "text-gray-500" value="raise">Raise</button>
       <input id="raiseamt" type = "range" min={{min_bet}} max=1000 class = "slider">
+      <p>Value: <span id = "raise_num"></span></p>
     </div>
 
 
     <script>
+      var raise_slider = document.getElementById("raiseamt");
+      var output = document.getElementById("raise_num");
+      raise_slider.oninput = function(){
+      //  console.log(this.value);
+        output.innerHTML = this.value;
+      }
 
       let deck = [];
       let player_hand = [];
@@ -102,10 +109,8 @@
         {
           document.getElementById("call").className = "text-red-500";
           document.getElementById("raise").className = "text-green-500";
-          amt_bet = document.getElementById("raiseamt").value;
-          console.log(amt_bet);
+          amt_bet = Number(document.getElementById("raiseamt").value);
         }
-
       }
 
       function continue_game()
@@ -147,15 +152,29 @@
 
         if(compare_val > 0){
           alert("Player Won!");
-          document.getElementById("money").value += amt_bet;
+          console.log(document.getElementById("money").value);
+          document.getElementById("money").value = Number(document.getElementById("money").value) - amt_bet;
+          document.getElementById("money").innerHTML = Number(document.getElementById("money").innerHTML) + amt_bet;
         }
         if(compare_val < 0){
           alert("Bot Won!");
-          document.getElementById("money").value -= amt_bet;
+          console.log(document.getElementById("money").value);
+          document.getElementById("money").value = Number(document.getElementById("money").value) - amt_bet;
+          document.getElementById("money").innerHTML = Number(document.getElementById("money").innerHTML) - amt_bet;
       }
         if(compare_val == 0){alert("Nobody Won!");}
 
-        console.log(amt_bet + ", " + document.getElementById("money").value);
+        for(let i = 0; i < 5; i++)
+        {
+          document.getElementById("redraw" + (i + 1)).className = "text-green-500";
+        }
+
+        if(Number(document.getElementById("money").value) >= 1000)
+        {
+          document.getElementById("raiseamt").max = Number(document.getElementById("money").value );
+        }
+
+        redraws = [];
       }
 
       function redraw_all()
@@ -173,6 +192,8 @@
         {
           document.getElementById("redraw" + (i + 1)).className = "text-red-500";
         }
+
+        redraws = [];
       }
 
       function player_redraw(event)
