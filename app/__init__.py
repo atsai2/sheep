@@ -82,7 +82,7 @@ def game():
         starting_balance = request.form['starting_balance'].strip()
         min_bet = request.form['min_bet'].strip()
         return render_template('game.html', starting_balance = starting_balance, min_bet = min_bet)
-    return render_template('game.html')
+    return render_template('game.html', starting_balance = 5000, min_bet = 50)
 
 if __name__ == "__main__":
     app.debug = True
