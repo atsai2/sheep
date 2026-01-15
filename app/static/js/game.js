@@ -1,69 +1,69 @@
 //CANVAS
-function setup(){
-  ctx.drawImage(poker_table, 200, 50, 600, 300) //DRAWS POKER TABLE
-
-  draw_players(6)
-  draw_back_community_cards()
-}
-
-function Player(canvas_location, balance){ //player object
-  this.canvas_location = canvas_location;
-  this.balance = balance;
-}
-
-function draw_players(num_players){ //draws green squares of all players and their cards
-  var player_location = [ //POSITIONS OF ALL PLAYERS 1-6
-      p1.canvas_location,
-      b1.canvas_location,
-      b2.canvas_location,
-      b3.canvas_location,
-      b4.canvas_location,
-      b5.canvas_location
-  ]
-
-  for(let i = 0; i < num_players; i++){
-    ctx.beginPath()
-    ctx.rect(player_location[i][0],player_location[i][1],player_location[i][2],player_location[i][3]) //DRAWS SQUARE PROFILE
-    ctx.fillStyle = "green";
-    ctx.fill()
-
-    ctx.drawImage(yellow_back, player_location[i][0] + 55,player_location[i][1], 975/30, 1388/30) //DRAWS BACK OF CARD
-    ctx.drawImage(yellow_back, player_location[i][0] + 55 + 975/30,player_location[i][1], 975/30, 1388/30)
-  }
-}
-
-function draw_back_community_cards(){ //draws the 5 cards on the table, face down
-  ctx.drawImage(yellow_back, 300 + 975/12 * 0, 150, 975/15, 1388/15)
-  ctx.drawImage(yellow_back, 300 + 975/12 * 1, 150, 975/15, 1388/15)
-  ctx.drawImage(yellow_back, 300 + 975/12 * 2, 150, 975/15, 1388/15)
-  ctx.drawImage(yellow_back, 300 + 975/12 * 3, 150, 975/15, 1388/15)
-  ctx.drawImage(yellow_back, 300 + 975/12 * 4, 150, 975/15, 1388/15)
-}
-
-function draw_balance(num_players, player_list){
-  ctx.font = "12px serif";
-  ctx.fillStyle = "black";
-  for(var i = 0; i < num_players; i++){
-    ctx.fillText("$" + player_list[i].balance, player_list[i].canvas_location[0], player_list[i].canvas_location[1] + 62);
-  }
-}
-
-//RUNNING CANVAS CODE
-
-const canvas = document.getElementById("canvas1");
-const ctx = canvas.getContext("2d");
-
-const starting_balance = document.getElementById("starting_balance").innerHTML
-const p1 = new Player([475, 350, 50, 50], starting_balance)
-const b1 = new Player([150, 175, 50, 50], starting_balance)
-const b2 = new Player([225, 20, 50, 50], starting_balance)
-const b3 = new Player([475, 0, 50, 50], starting_balance)
-const b4 = new Player([725, 20, 50, 50], starting_balance)
-const b5 = new Player([800, 175, 50, 50], starting_balance)
-const player_list = [p1, b1, b2, b3, b4, b5]
-
-setup()
-draw_balance(6, player_list)
+// function setup(){
+//   ctx.drawImage(poker_table, 200, 50, 600, 300) //DRAWS POKER TABLE
+//
+//   draw_players(6)
+//   draw_back_community_cards()
+// }
+//
+// function Player(canvas_location, balance){ //player object
+//   this.canvas_location = canvas_location;
+//   this.balance = balance;
+// }
+//
+// function draw_players(num_players){ //draws green squares of all players and their cards
+//   var player_location = [ //POSITIONS OF ALL PLAYERS 1-6
+//       p1.canvas_location,
+//       b1.canvas_location,
+//       b2.canvas_location,
+//       b3.canvas_location,
+//       b4.canvas_location,
+//       b5.canvas_location
+//   ]
+//
+//   for(let i = 0; i < num_players; i++){
+//     ctx.beginPath()
+//     ctx.rect(player_location[i][0],player_location[i][1],player_location[i][2],player_location[i][3]) //DRAWS SQUARE PROFILE
+//     ctx.fillStyle = "green";
+//     ctx.fill()
+//
+//     ctx.drawImage(yellow_back, player_location[i][0] + 55,player_location[i][1], 975/30, 1388/30) //DRAWS BACK OF CARD
+//     ctx.drawImage(yellow_back, player_location[i][0] + 55 + 975/30,player_location[i][1], 975/30, 1388/30)
+//   }
+// }
+//
+// function draw_back_community_cards(){ //draws the 5 cards on the table, face down
+//   ctx.drawImage(yellow_back, 300 + 975/12 * 0, 150, 975/15, 1388/15)
+//   ctx.drawImage(yellow_back, 300 + 975/12 * 1, 150, 975/15, 1388/15)
+//   ctx.drawImage(yellow_back, 300 + 975/12 * 2, 150, 975/15, 1388/15)
+//   ctx.drawImage(yellow_back, 300 + 975/12 * 3, 150, 975/15, 1388/15)
+//   ctx.drawImage(yellow_back, 300 + 975/12 * 4, 150, 975/15, 1388/15)
+// }
+//
+// function draw_balance(num_players, player_list){
+//   ctx.font = "12px serif";
+//   ctx.fillStyle = "black";
+//   for(var i = 0; i < num_players; i++){
+//     ctx.fillText("$" + player_list[i].balance, player_list[i].canvas_location[0], player_list[i].canvas_location[1] + 62);
+//   }
+// }
+//
+// //RUNNING CANVAS CODE
+//
+// const canvas = document.getElementById("canvas1");
+// const ctx = canvas.getContext("2d");
+//
+// const starting_balance = document.getElementById("starting_balance").innerHTML
+// const p1 = new Player([475, 350, 50, 50], starting_balance)
+// const b1 = new Player([150, 175, 50, 50], starting_balance)
+// const b2 = new Player([225, 20, 50, 50], starting_balance)
+// const b3 = new Player([475, 0, 50, 50], starting_balance)
+// const b4 = new Player([725, 20, 50, 50], starting_balance)
+// const b5 = new Player([800, 175, 50, 50], starting_balance)
+// const player_list = [p1, b1, b2, b3, b4, b5]
+//
+// setup()
+// draw_balance(6, player_list)
 
 
 
