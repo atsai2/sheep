@@ -21,13 +21,13 @@
     <button id="state_restart">Reroll</button>
     <br><br><br>
 
-    <div id ="bot_cards" class="h-[10%] flex flex-wrap flex-row">
-
+    <div id='table_with_cards'>
+      <div id="poker_table"></div>
+      <div id ="bot_cards" class="h-[10%] flex flex-wrap flex-row"></div>
+      <div id ="player_cards" class="h-[10%] gap-1 flex flex-wrap"></div>
     </div>
 
-    <div id ="player_cards" class="h-[10%] gap-1 flex flex-wrap">
 
-    </div>
     <div id = "player_redraws" class = 'flex w-full gap-3'>
       <button id="redraw1" value=1 class="text-green-500">Select Card 1</button><br>
       <button id="redraw2" value=2 class="text-green-500">Select Card 2</button><br>
@@ -180,7 +180,7 @@
       function redraw_all()
       {
         redraws = redraws.sort();
-        for(let i = redraws.length - 1; i > -1;i--)
+        for(let i = redraws.length - 1; i > -1;i--)bot_cards
         {
           redraw(player_hand,deck,redraws[i]);
         }
@@ -202,7 +202,7 @@
         if(button_class == "text-green-500")
         {
           redraws.push(event.target.value - 1);
-          document.getElementById("redraw" + event.target.value).className = "text-red-500";
+          document.getElementById("redraw" + event.target.value).className = "text-red-500";bot_cards
         }
 
       }
@@ -225,6 +225,7 @@
 
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
+        document.getElementById("poker_table").innerHTML = '<img id="table_img" class="scale-110 w-[1600px] absolute right-90" src="../static/image/poker table3.png">';
       }
 
 
