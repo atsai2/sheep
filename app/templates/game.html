@@ -3,12 +3,145 @@
   <head>
     <title>Game</title>
   </head>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
   <body>
-    <div style="display:none">
+    <!-- <div style="display:none">
       <img id="poker_table" width="220" height="277" src="../static/image/poker table3.png">
     </div>
     <canvas id="canvas1" width="1000" height="500" style="width: 100%; border:1px solid #000000;"></canvas>
+  -->
     <script src = "../static/js/game.js"></script>
+
+
+    <button id="state_restart">Reroll</button>
+    <br><br><br>
+
+    <div id ="bot_cards" class="h-[10%] flex flex-wrap flex-row">
+
+    </div>
+
+    <div id ="player_cards" class="h-[10%] gap-1 flex flex-wrap">
+
+    </div>
+    <div id = "player_redraws" class = 'flex w-full gap-3'>
+      <button id="redraw1" value=1>Redraw Card 1</button><br>
+      <button id="redraw2" value=2>Redraw Card 2</button><br>
+      <button id="redraw3" value=3>Redraw Card 3</button><br>
+      <button id="redraw4" value=4>Redraw Card 4</button><br>
+      <button id="redraw5" value=5>Redraw Card 5</button><br>
+    </div>
+
+    <button id="cont">Continue</button>
+
+
+
+    <script>
+
+      let deck = [];
+      let player_hand = [];
+      let bot_hand = [];
+      let redraws = [];
+
+      var restart = document.getElementById("state_restart");
+      restart.addEventListener("click",game_restart);
+
+
+      var redraw1 = document.getElementById("redraw1");
+      redraw1.addEventListener("click",player_redraw);
+      var redraw2 = document.getElementById("redraw2");
+      redraw2.addEventListener("click",player_redraw);
+      var redraw3 = document.getElementById("redraw3");
+      redraw3.addEventListener("click",player_redraw);
+      var redraw4 = document.getElementById("redraw4");
+      redraw4.addEventListener("click",player_redraw);
+      var redraw5 = document.getElementById("redraw5");
+      redraw5.addEventListener("click",player_redraw);
+
+      var cont_game = document.getElementById("cont");
+      cont_game.addEventListener("click",continue_game);
+
+      function continue_game()
+      {
+        for(let i = 0; i < redraws.length;i++)
+        {
+          redraw(player_hand,deck,redraws[i]);
+        }
+        //print_2d(bot_hand);
+
+        //print_2d(player_hand);
+
+
+        let bot_in_state = [];
+        let bot_state = [];
+
+        let bot_state_info = get_hand_state(bot_hand, bot_in_state);
+        bot_state = bot_state_info[0];
+        bot_in_state = bot_state_info[1];
+
+        bot_redraw(bot_hand, bot_in_state, deck);
+        //print_2d(bot_hand);
+
+        bot_state_info = get_hand_state(bot_hand, bot_in_state);
+        bot_state = bot_state_info[0];
+        bot_in_state = bot_state_info[1];
+
+
+        let player_in_state = [];
+        let player_state = [];
+        let player_state_info = get_hand_state(player_hand, player_in_state);
+
+        player_state = player_state_info[0];
+        player_in_state = player_state_info[1];
+
+        let compare_val = compare_hands(player_hand, bot_hand, player_state, bot_state);
+
+        let player_cards = hand_to_imgs(player_hand, "player");
+        let bot_cards = hand_to_imgs(bot_hand, "player");
+        document.getElementById("player_cards").innerHTML = player_cards;
+        document.getElementById("bot_cards").innerHTML = bot_cards;
+
+        if(compare_val > 0){alert("Player Won!");}
+        if(compare_val < 0){alert("Bot Won!");}
+        if(compare_val == 0){alert("Nobody Won!");}
+
+
+      }
+
+      function player_redraw(event)
+      {
+        redraws.push(event.target.value - 1);
+      }
+
+      function show_hand()
+      {
+        print_2d(player_hand);
+      }
+
+      function game_restart()
+      {
+        deck = make_deck();
+        player_hand = draw_hand(deck);
+        print_2d(player_hand);
+        bot_hand = draw_hand(deck);
+
+        let player_cards = hand_to_imgs(player_hand, "player");
+        let bot_cards = hand_to_imgs(bot_hand, "bot");
+
+
+        document.getElementById("player_cards").innerHTML = player_cards;
+        document.getElementById("bot_cards").innerHTML = bot_cards;
+      }
+
+
+
+    </script>
+
+
+
+
+
     <!-- <svg id="svg" width="100%" height="100%" viewBox="0 0 1000 400" style="border:1px solid #000000;">
       <use href="/static/image/poker table3.png"></use>
     </svg> -->

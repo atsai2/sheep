@@ -25,7 +25,7 @@ def user_context(): # persistent info made avalible for all html templates
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    return render_template("home.html")
+    return render_template("game.html")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
