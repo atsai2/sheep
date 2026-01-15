@@ -28,7 +28,7 @@
                 <p class="text-blue-200/60 mt-2 text-xs uppercase tracking-widest">Configure Poker Game</p>
             </div>
             
-            <form action="/start_game" method="POST" class="flex flex-col gap-6">
+            <form action="/game" method="POST" class="flex flex-col gap-6">
                 
                 <div class="flex flex-col gap-2">
                     <label class="text-xs text-green-300 uppercase ml-1 flex items-center gap-2">
@@ -50,9 +50,9 @@
                 <div class="flex flex-col gap-2">
                     <label class="text-xs text-green-300 uppercase ml-1 flex items-center gap-2">
                         <i class="fa-solid fa-dollar-sign"></i>
-                        Blind/Minimum Bet
+                        Minimum Bet
                     </label>
-                    <select name="blind" 
+                    <select name="min_bet" 
                             class="w-full text-black p-3 rounded-xl bg-white/90 focus:bg-white transition-all"
                             required>
                         <option value="10">$10</option>

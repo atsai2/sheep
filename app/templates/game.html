@@ -10,6 +10,8 @@
     <div style="display:none">
       <img id="poker_table" width="220" height="277" src="../static/image/poker table3.png">
       <img id="yellow_back" width="975" height="1388" src="../static/image/yellow_back.png">
+      <p id="starting_balance">{{starting_balance}}</p>
+      <p id="min_bet">{{min_bet}}</p>
     </div>
     <canvas id="canvas1" width="1000" height="500" style="width: 100%; border:1px solid #000000;"></canvas>
 
@@ -36,9 +38,12 @@
 
     <button id="cont">Continue</button>
 
-    <button id="call">Call</button>
-    <button id="fold">Fold</button>
-    <button id="raise">Raise</button>
+    <div>
+      <button id="call">Call</button>
+      <button id="fold">Fold</button>
+      <button id="raise">Raise</button>
+    </div>
+    
 
 
     <script>

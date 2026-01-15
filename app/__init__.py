@@ -72,6 +72,17 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for('homepage'))
 
+@app.route("/setup", methods=['GET', 'POST'])
+def setup():
+    return render_template('setup.html')
+
+@app.route("/game", methods=['GET', 'POST'])
+def game():
+    if request.method == 'POST':
+        starting_balance = request.form['starting_balance'].strip()
+        min_bet = request.form['min_bet'].strip()
+        return render_template('game.html', starting_balance = starting_balance, min_bet = min_bet)
+    return render_template('game.html')
 
 if __name__ == "__main__":
     app.debug = True
