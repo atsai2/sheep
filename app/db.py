@@ -48,3 +48,11 @@ def get_user(username):
     DB_CURSOR.execute("SELECT * FROM Users WHERE username = ?", (username,))
     cursorfetch = DB_CURSOR.fetchone()
     return cursorfetch
+
+def get_top_users():
+    DB_NAME = "Data/data.db"
+    DB = sqlite3.connect(DB_NAME)
+    DB_CURSOR = DB.cursor()
+    DB_CURSOR.execute("SELECT * FROM Users ORDER BY balance;")
+    cursorfetch = DB_CURSOR.fetchall()
+    return cursorfetch
