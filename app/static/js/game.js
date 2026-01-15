@@ -48,7 +48,7 @@ function draw_balance(num_players, player_list){
   }
 }
 
-//RUNNING CANVAS CODE 
+//RUNNING CANVAS CODE
 
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
@@ -159,25 +159,23 @@ function bot_redraw(hand, in_state, deck)
 
 function draw_hand(deck)
 {
-  let hand = [];
+  let hand = [0,0,0,0,0];
   for(let i = 0; i < 5; i++)
   {
-    draw_card(hand, deck)
+    draw_card(hand, deck, i)
   }
   return hand;
 }
 
-function draw_card(hand, deck)
+function draw_card(hand, deck, index)
 {
-  hand.push(deck[deck.length - 1]);
+  hand[index] = deck[deck.length - 1];
   deck.pop();
-  hand.sort(sort_hand);
 }
 
 function redraw(hand, deck, index)
 {
-  hand.splice(index, 1);
-  draw_card(hand,deck);
+  draw_card(hand,deck, index);
 }
 
 
