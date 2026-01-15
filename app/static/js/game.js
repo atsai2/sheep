@@ -1,72 +1,48 @@
+//CANVAS
 function setup(){
-  const poker_table = document.getElementById("poker_table")
   ctx.drawImage(poker_table, 200, 50, 600, 300) //DRAWS POKER TABLE
 
   draw_players(6)
+  draw_back_community_cards()
 }
 
-function draw_players(num_players){
-  var player_list = [
+function draw_players(num_players){ //draws green squares of all players and their cards
+  var player_list = [ //POSITIONS OF ALL PLAYERS 1-6
       [475, 350, 50, 50],
       [150, 175, 50, 50],
       [225, 20, 50, 50],
       [475, 0, 50, 50],
       [725, 20, 50, 50],
       [800, 175, 50, 50],
-
   ]
+
   for(let i = 0; i < num_players; i++){
     ctx.beginPath()
-    ctx.rect(player_list[i][0],player_list[i][1],player_list[i][2],player_list[i][3])
+    ctx.rect(player_list[i][0],player_list[i][1],player_list[i][2],player_list[i][3]) //DRAWS SQUARE PROFILE
     ctx.fillStyle = "green";
     ctx.fill()
+
+    ctx.drawImage(yellow_back, player_list[i][0] + 55,player_list[i][1], 975/30, 1388/30) //DRAWS BACK OF CARD
+    ctx.drawImage(yellow_back, player_list[i][0] + 55 + 975/30,player_list[i][1], 975/30, 1388/30)
   }
 }
 
-function draw_back_cards(){
-  
+function draw_back_community_cards(){ //draws the 5 cards on the table, face down
+  ctx.drawImage(yellow_back, 300 + 975/12 * 0, 150, 975/15, 1388/15)
+  ctx.drawImage(yellow_back, 300 + 975/12 * 1, 150, 975/15, 1388/15)
+  ctx.drawImage(yellow_back, 300 + 975/12 * 2, 150, 975/15, 1388/15)
+  ctx.drawImage(yellow_back, 300 + 975/12 * 3, 150, 975/15, 1388/15)
+  ctx.drawImage(yellow_back, 300 + 975/12 * 4, 150, 975/15, 1388/15)
 }
 
-//
-// function change_button(){
-//   ctx.beginPath()
-//   ctx.rect(75, 375, 100, 65);
-//   ctx.fillStyle = "green";
-//   ctx.fill()
-// }
-//
-// function change_button_back(){
-//   ctx.beginPath()
-//   ctx.rect(75, 375, 100, 65);
-//   ctx.fillStyle = "#A3F0A3";
-//   ctx.fill()
-// }
 
-//RUNNING CODE
+
+//RUNNING CANVAS CODE 
 
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 
 setup()
-// canvas.addEventListener('click', function(event) {
-//   console.log(event.clientX, event.clientY)
-//   console.log(event., event.clientY)
-//   change_button()
-// })
-//
-// canvas.addEventListener('mousedown', function(event){
-//   if(event.clientX > 150 & event.clientX < 350 & event.clientY > 650 & event.clientY < 750){
-//     change_button()
-//   }
-// })
-//
-// canvas.addEventListener('mouseup', function(event){
-//   if(event.clientX > 150 & event.clientX < 350 & event.clientY > 650 & event.clientY < 750){
-//     change_button_back()
-//   }
-// })
-
-
 
 
 
