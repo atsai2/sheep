@@ -14,7 +14,7 @@ import db
 # Initialize databases
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = "83ut83ojreoikdlshg3958u4wjtse09gol.hi"
 
 @app.context_processor
 def user_context(): # persistent info made avalible for all html templates
@@ -25,7 +25,10 @@ def user_context(): # persistent info made avalible for all html templates
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    return render_template("game.html")
+    currency = db.get_balance(session['username'])
+    print(currency);
+    #return redirect(url_for('login'))
+    return render_template("game.html", currency = currency)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -63,7 +66,8 @@ def login():
             return redirect(url_for('login'))
         flash(f"Login Successful! Welcome back, {user}.")
         session['username'] = user
-        return redirect(url_for('profile'))
+        print(session['username'])
+        return redirect(url_for('homepage'))
     return render_template("login.html")
 
 @app.route("/logout")
@@ -78,11 +82,29 @@ def setup():
 
 @app.route("/game", methods=['GET', 'POST'])
 def game():
+    currency = db.get_balance(session['username'])
     if request.method == 'POST':
         starting_balance = request.form['starting_balance'].strip()
         min_bet = request.form['min_bet'].strip()
-        return render_template('game.html', starting_balance = starting_balance, min_bet = min_bet)
-    return render_template('game.html', starting_balance = 5000, min_bet = 50)
+        return render_template('game.html', starting_balance = starting_balance, min_bet = min_bet, currency = currency)
+    return render_template('game.html', starting_balance = 5000, min_bet = 50, currency = currency)
+
+@app.route("/update_currency", methods = ["GET", "POST"])
+def update_currency():
+    if("currency" in request.form):
+        db.alter_balance(session["username"],int(request.form["currency"]))
+        print(f"altered balance by {request.form['currency']}")
+
+
+    return redirect("/")
+
+@app.route("/login.html")
+def login_html():
+    return render_template("login.html")
+
+@app.route("/create_account.html")
+def register_html():
+    return render_template("create_account.html")
 
 if __name__ == "__main__":
     app.debug = True

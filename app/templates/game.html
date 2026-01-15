@@ -17,12 +17,15 @@
 
     <script src = "../static/js/game.js"></script>
 
-
+    <form action = "/update_currency" method="POST">
+      <input type="hidden" name="currency" id="currency_form" value=0>
+      <button type="SUBMIT">LEAVE</button>
+    </form>
     <button id="state_restart">Reroll</button>
     <br><br><br>
 
     <div id='table_with_cards'>
-      <div id="poker_table"></div>
+      <!-- <div id="poker_table"></div> -->
       <div id ="bot_cards" class="h-[10%] flex flex-wrap flex-row"></div>
       <div id ="player_cards" class="h-[10%] gap-1 flex flex-wrap"></div>
     </div>
@@ -40,15 +43,15 @@
     <button id="cont">Continue</button>
 
     <div>
-      <!-- <p id="money" value={{currency}}></p> -->
-      <button id="money" value="1000">1000</button>
+      <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
+      <button id="money" value={{currency}}>Current Balance: {{currency}}</button>
     </div>
 
     <div>
       <button id="call" class = "text-gray-500" value="call">Call</button><br>
       <!-- <button id="fold">Fold</button> -->
       <button id="raise" class = "text-gray-500" value="raise">Raise</button>
-      <input id="raiseamt" type = "range" min={{min_bet}} max=1000 class = "slider">
+      <input id="raiseamt" type = "range" min=50 max=1000 class = "slider">
       <p>Value: <span id = "raise_num"></span></p>
     </div>
 
@@ -150,37 +153,53 @@
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
 
+        if(isNaN(Number(document.getElementById("currency_form").value)))
+        {
+          document.getElementById("currency_form").value = 0;
+        }
+
         if(compare_val > 0){
           alert("Player Won!");
           console.log(document.getElementById("money").value);
-          document.getElementById("money").value = Number(document.getElementById("money").value) - amt_bet;
-          document.getElementById("money").innerHTML = Number(document.getElementById("money").innerHTML) + amt_bet;
+          document.getElementById("money").value = Number(document.getElementById("money").value) + amt_bet;
+          document.getElementById("money").innerHTML = "Current Balance: " + String(Number(document.getElementById("money").value));
+          document.getElementById("currency_form").value = Number(document.getElementById("currency_form").value) + amt_bet;
         }
         if(compare_val < 0){
           alert("Bot Won!");
-          console.log(document.getElementById("money").value);
           document.getElementById("money").value = Number(document.getElementById("money").value) - amt_bet;
-          document.getElementById("money").innerHTML = Number(document.getElementById("money").innerHTML) - amt_bet;
+          document.getElementById("money").innerHTML = "Current Balance: " + String(Number(document.getElementById("money").value));
+          document.getElementById("currency_form").value = Number(document.getElementById("currency_form").value) - amt_bet;
       }
         if(compare_val == 0){alert("Nobody Won!");}
+      console.log(document.getElementById("currency_form").value);
 
         for(let i = 0; i < 5; i++)
         {
           document.getElementById("redraw" + (i + 1)).className = "text-green-500";
         }
 
+        console.log(Number(document.getElementById("money").value));
         if(Number(document.getElementById("money").value) >= 1000)
         {
           document.getElementById("raiseamt").max = Number(document.getElementById("money").value );
         }
+        else
+        {
+          document.getElementById("raiseamt").max = 1000;
+        }
 
+        document.getElementById("raise").className = "text-gray-500";
+        document.getElementById("call").className = "text-gray-500";
         redraws = [];
       }
 
       function redraw_all()
       {
         redraws = redraws.sort();
-        for(let i = redraws.length - 1; i > -1;i--)bot_cards
+        if(redraws.length > 0)
+        {
+        for(let i = redraws.length - 1; i > -1; i--)
         {
           redraw(player_hand,deck,redraws[i]);
         }
@@ -192,6 +211,7 @@
         {
           document.getElementById("redraw" + (i + 1)).className = "text-red-500";
         }
+        }
 
         redraws = [];
       }
@@ -202,9 +222,14 @@
         if(button_class == "text-green-500")
         {
           redraws.push(event.target.value - 1);
-          document.getElementById("redraw" + event.target.value).className = "text-red-500";bot_cards
+          document.getElementById("redraw" + event.target.value).className = "text-red-500";
         }
-
+        else if(button_class = "text-red-500")
+        {
+          redraws.splice(redraws.indexOf(event.target.value - 1),1);
+          document.getElementById("redraw" + event.target.value).className = "text-green-500";
+        }
+        console.log(redraws);
       }
 
       function show_hand()
@@ -214,6 +239,13 @@
 
       function game_restart()
       {
+        document.getElementById("raise").className = "text-gray-500";
+        document.getElementById("call").className = "text-gray-500";
+        for(let i = 0; i < 5; i++)
+        {
+          document.getElementById("redraw" + (i + 1)).className = "text-green-500";
+        }
+
         deck = make_deck();
         player_hand = draw_hand(deck);
         print_2d(player_hand);
@@ -225,7 +257,7 @@
 
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
-        document.getElementById("poker_table").innerHTML = '<img id="table_img" class="scale-110 w-[1600px] absolute right-90" src="../static/image/poker table3.png">';
+      //  document.getElementById("poker_table").innerHTML = '<img id="table_img" class="scale-110 w-[1600px] absolute right-90" src="../static/image/poker table3.png">';
       }
 
 
