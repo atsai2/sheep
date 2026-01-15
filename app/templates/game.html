@@ -29,21 +29,27 @@
 
     </div>
     <div id = "player_redraws" class = 'flex w-full gap-3'>
-      <button id="redraw1" value=1>Redraw Card 1</button><br>
-      <button id="redraw2" value=2>Redraw Card 2</button><br>
-      <button id="redraw3" value=3>Redraw Card 3</button><br>
-      <button id="redraw4" value=4>Redraw Card 4</button><br>
-      <button id="redraw5" value=5>Redraw Card 5</button><br>
+      <button id="redraw1" value=1 class="text-green-500">Select Card 1</button><br>
+      <button id="redraw2" value=2 class="text-green-500">Select Card 2</button><br>
+      <button id="redraw3" value=3 class="text-green-500">Select Card 3</button><br>
+      <button id="redraw4" value=4 class="text-green-500">Select Card 4</button><br>
+      <button id="redraw5" value=5 class="text-green-500">Select Card 5</button><br>
     </div>
 
+    <button id="redraw_all_cards">Redraw Selected</button><br>
     <button id="cont">Continue</button>
 
     <div>
-      <button id="call">Call</button>
-      <button id="fold">Fold</button>
-      <button id="raise">Raise</button>
+      <!-- <p id="money" value={{currency}}></p> -->
+      <p id="money" value=1000>1000</p>
     </div>
-    
+
+    <div>
+      <button id="call" class = "text-gray-500" value="call">Call</button><br>
+      <!-- <button id="fold">Fold</button> -->
+      <button id="raise" class = "text-gray-500" value="raise">Raise</button>
+      <input id="raiseamt" type = "range" min={{min_bet}} max=1000 class = "slider">
+    </div>
 
 
     <script>
@@ -52,6 +58,15 @@
       let player_hand = [];
       let bot_hand = [];
       let redraws = [];
+
+      let min_bet = 50;
+      var money = document.getElementById("money").value;
+      var amt_bet = min_bet;
+
+      var call = document.getElementById("call");
+      var raise = document.getElementById("raise");
+      call.addEventListener("click",modify_bet);
+      raise.addEventListener("click",modify_bet);
 
       var restart = document.getElementById("state_restart");
       restart.addEventListener("click",game_restart);
@@ -68,15 +83,34 @@
       var redraw5 = document.getElementById("redraw5");
       redraw5.addEventListener("click",player_redraw);
 
+      var redrawall = document.getElementById("redraw_all_cards");
+      redrawall.addEventListener("click", redraw_all);
+
       var cont_game = document.getElementById("cont");
       cont_game.addEventListener("click",continue_game);
 
+      function modify_bet(event)
+      {
+        let bet_state = event.target.value;
+        if(bet_state == "call")
+        {
+          amt_bet = 50;
+          document.getElementById("call").className = "text-green-500";
+          document.getElementById("raise").className = "text-red-500";
+        }
+        if(bet_state == "raise")
+        {
+          document.getElementById("call").className = "text-red-500";
+          document.getElementById("raise").className = "text-green-500";
+          amt_bet = document.getElementById("raiseamt").value;
+          console.log(amt_bet);
+        }
+
+      }
+
       function continue_game()
       {
-        for(let i = 0; i < redraws.length;i++)
-        {
-          redraw(player_hand,deck,redraws[i]);
-        }
+
         //print_2d(bot_hand);
 
         //print_2d(player_hand);
@@ -111,16 +145,45 @@
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
 
-        if(compare_val > 0){alert("Player Won!");}
-        if(compare_val < 0){alert("Bot Won!");}
+        if(compare_val > 0){
+          alert("Player Won!");
+          document.getElementById("money").value += amt_bet;
+        }
+        if(compare_val < 0){
+          alert("Bot Won!");
+          document.getElementById("money").value -= amt_bet;
+      }
         if(compare_val == 0){alert("Nobody Won!");}
 
+        console.log(amt_bet + ", " + document.getElementById("money").value);
+      }
 
+      function redraw_all()
+      {
+        redraws = redraws.sort();
+        for(let i = redraws.length - 1; i > -1;i--)
+        {
+          redraw(player_hand,deck,redraws[i]);
+        }
+
+        player_cards = hand_to_imgs(player_hand, "player");
+        document.getElementById("player_cards").innerHTML = player_cards;
+
+        for(let i = 0; i < 5; i++)
+        {
+          document.getElementById("redraw" + (i + 1)).className = "text-red-500";
+        }
       }
 
       function player_redraw(event)
       {
-        redraws.push(event.target.value - 1);
+        let button_class = document.getElementById("redraw" + event.target.value).className;
+        if(button_class == "text-green-500")
+        {
+          redraws.push(event.target.value - 1);
+          document.getElementById("redraw" + event.target.value).className = "text-red-500";
+        }
+
       }
 
       function show_hand()
