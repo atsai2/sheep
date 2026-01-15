@@ -1,24 +1,46 @@
 function setup(){
-  ctx.beginPath() //table
-  ctx.ellipse(500, 220, 400, 200, 0, 0, 2 * Math.PI) //DRAWS POKER TABLE
-  ctx.stroke()
-
-  ctx.beginPath()
-  ctx.arc(75, 425, 50, 0, Math.PI * 2, true); //DRAWS BUTTON
-  ctx.fillStyle = "#A3F0A3";
-  ctx.fill()
-
   const poker_table = document.getElementById("poker_table")
-  ctx.drawImage(poker_table, 10, 10, 80, 80)
+  ctx.drawImage(poker_table, 200, 50, 600, 300) //DRAWS POKER TABLE
+
+  draw_players(6)
 }
 
-function change_button(){
-  ctx.beginPath()
-  ctx.arc(75, 425, 50, 0, Math.PI * 2, true);
-  ctx.fillStyle = "green";
-  ctx.fill()
+function draw_players(num_players){
+  var player_list = [
+      [475, 350, 50, 50],
+      [150, 175, 50, 50],
+      [225, 20, 50, 50],
+      [475, 0, 50, 50],
+      [725, 20, 50, 50],
+      [800, 175, 50, 50],
+
+  ]
+  for(let i = 0; i < num_players; i++){
+    ctx.beginPath()
+    ctx.rect(player_list[i][0],player_list[i][1],player_list[i][2],player_list[i][3])
+    ctx.fillStyle = "green";
+    ctx.fill()
+  }
 }
 
+function draw_back_cards(){
+  
+}
+
+//
+// function change_button(){
+//   ctx.beginPath()
+//   ctx.rect(75, 375, 100, 65);
+//   ctx.fillStyle = "green";
+//   ctx.fill()
+// }
+//
+// function change_button_back(){
+//   ctx.beginPath()
+//   ctx.rect(75, 375, 100, 65);
+//   ctx.fillStyle = "#A3F0A3";
+//   ctx.fill()
+// }
 
 //RUNNING CODE
 
@@ -26,11 +48,24 @@ const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 
 setup()
+// canvas.addEventListener('click', function(event) {
+//   console.log(event.clientX, event.clientY)
+//   console.log(event., event.clientY)
+//   change_button()
+// })
+//
+// canvas.addEventListener('mousedown', function(event){
+//   if(event.clientX > 150 & event.clientX < 350 & event.clientY > 650 & event.clientY < 750){
+//     change_button()
+//   }
+// })
+//
+// canvas.addEventListener('mouseup', function(event){
+//   if(event.clientX > 150 & event.clientX < 350 & event.clientY > 650 & event.clientY < 750){
+//     change_button_back()
+//   }
+// })
 
-canvas.addEventListener('click', function(event) {
-  console.log(event.clientX, event.clientY)
-  change_button()
-})
 
 
 

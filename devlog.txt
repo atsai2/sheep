@@ -16,3 +16,6 @@ mustafaA -- 2026-01-14 02:00
 tudorG -- 2026-01-14 10:30
 -Fixing issues with getting poker hand state & redraw
 -Creating the game-user interface
+
+jiefengO -- 2026-01-14 11:00
+-Added img of poker table, player locations
