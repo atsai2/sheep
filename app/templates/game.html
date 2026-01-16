@@ -6,10 +6,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-  <body>
+  <body class="min-h-screen text-white relative">
+
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-black/70 bg-repeat z-15"></div>
+      <img id="background" src="../static/image/game_bcg.png" alt="Poker Background" class="w-full h-full">
+    </div>
+
     <script src = "../static/js/game.js"></script>
 
-    <div class="grid grid-cols-1 justify-self-start">
+    <div class="relative grid grid-cols-1 justify-self-start">
 
       <div class="col-span-full">
         <form action = "/update_currency" method="POST">
@@ -26,16 +32,16 @@
       </div>
 
 
-      <div id = "player_redraws" class = 'flex w-full gap-3 col-span-full'>
-        <button id="redraw1" value=1 class="text-green-500">Select Card 1</button><br>
-        <button id="redraw2" value=2 class="text-green-500">Select Card 2</button><br>
-        <button id="redraw3" value=3 class="text-green-500">Select Card 3</button><br>
-        <button id="redraw4" value=4 class="text-green-500">Select Card 4</button><br>
-        <button id="redraw5" value=5 class="text-green-500">Select Card 5</button><br>
+      <div id = "player_redraws" class = 'flex flex-wrap flex-row justify-center col-span-full'>
+        <button id="redraw1" value=1 class="text-green-500 w-1/6">Select Card 1</button><br>
+        <button id="redraw2" value=2 class="text-green-500 w-1/6">Select Card 2</button><br>
+        <button id="redraw3" value=3 class="text-green-500 w-1/6">Select Card 3</button><br>
+        <button id="redraw4" value=4 class="text-green-500 w-1/6">Select Card 4</button><br>
+        <button id="redraw5" value=5 class="text-green-500 w-1/6">Select Card 5</button><br>
       </div>
 
       <div id="buttons">
-        <button id="redraw_all_cards">Redraw Selected</button><br>
+        <button id="redraw_all_cards" class="">Redraw Selected</button><br>
         <button id="cont">Continue</button>
 
         <div>
@@ -182,7 +188,7 @@
 
         for(let i = 0; i < 5; i++)
         {
-          document.getElementById("redraw" + (i + 1)).className = "text-green-500";
+          document.getElementById("redraw" + (i + 1)).className = "text-green-500 w-1/6";
         }
 
         console.log(Number(document.getElementById("money").value));
@@ -215,7 +221,7 @@
 
         for(let i = 0; i < 5; i++)
         {
-          document.getElementById("redraw" + (i + 1)).className = "text-red-500";
+          document.getElementById("redraw" + (i + 1)).className = "text-red-500 hidden";
         }
         }
 
@@ -225,15 +231,15 @@
       function player_redraw(event)
       {
         let button_class = document.getElementById("redraw" + event.target.value).className;
-        if(button_class == "text-green-500")
+        if(button_class == "text-green-500 w-1/6")
         {
           redraws.push(event.target.value - 1);
-          document.getElementById("redraw" + event.target.value).className = "text-red-500";
+          document.getElementById("redraw" + event.target.value).className = "text-red-500 w-1/6";
         }
-        else if(button_class = "text-red-500")
+        else if(button_class = "text-red-500 w-1/6")
         {
           redraws.splice(redraws.indexOf(event.target.value - 1),1);
-          document.getElementById("redraw" + event.target.value).className = "text-green-500";
+          document.getElementById("redraw" + event.target.value).className = "text-green-500 w-1/6";
         }
         console.log(redraws);
       }
@@ -249,7 +255,7 @@
         document.getElementById("call").className = "text-gray-500";
         for(let i = 0; i < 5; i++)
         {
-          document.getElementById("redraw" + (i + 1)).className = "text-green-500";
+          document.getElementById("redraw" + (i + 1)).className = "text-green-500 w-1/6";
         }
 
         deck = make_deck();
@@ -259,7 +265,6 @@
 
         let player_cards = hand_to_imgs(player_hand, "player");
         let bot_cards = hand_to_imgs(bot_hand, "bot");
-
 
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;

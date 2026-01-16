@@ -101,10 +101,20 @@ def update_currency():
         return redirect(url_for('login'))
 
     if("currency" in request.form):
+        balance_change = int(request.form["currency"])
+        db.alter_balance(session["username"], balance_change)
+        print(f"altered balance by {balance_change}")
+    return redirect("/")
+
+@app.route("/update_currency_bailout", methods = ["GET", "POST"])
+def update_currency_bailout():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if("currency" in request.form):
         balance_change = int(request.form["currency"]) - db.get_balance(session['username'])
         if balance_change < 0: 
             balance_change = 0
-        
         db.alter_balance(session["username"], balance_change)
         print(f"altered balance by {balance_change}")
     return redirect("/")
