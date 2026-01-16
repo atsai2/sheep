@@ -71,6 +71,8 @@
 
 function compare_hands(hand1, hand2, state1, state2)
 {
+  hand1 = hand1.sort(sort_hand);
+  hand2 = hand2.sort(sort_hand);
   if(state1[0] > state2[0])
     {
       return 1;
