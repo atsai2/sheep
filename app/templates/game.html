@@ -58,7 +58,7 @@
           <p>Value: <span id = "raise_num"></span></p>
         </div>
       </div>
-    
+
     </div>
 
 
@@ -69,7 +69,7 @@
       var raise_slider = document.getElementById("raiseamt");
       var output = document.getElementById("raise_num");
       raise_slider.oninput = function(){
-      //  console.log(this.value);
+      //  // console.log(this.value);
         output.innerHTML = this.value;
       }
 
@@ -79,7 +79,7 @@
       let redraws = [];
 
       var money = document.getElementById("money").value;
-        
+
 
       var call = document.getElementById("call");
       var raise = document.getElementById("raise");
@@ -103,9 +103,9 @@
 
       var cont_game = document.getElementById("cont");
       cont_game.addEventListener("click",restart_or_continue);
-      
-      
-      
+
+
+
 
       function modify_bet(event)
       {
@@ -166,9 +166,9 @@
         if(amt_bet < min_bet){
           amt_bet = min_bet
         }
-        if(amt_bet > Number(document.getElementById("money").value)){
-          amt_bet = Number(document.getElementById("money").value)
-        }
+        // if(amt_bet > Number(document.getElementById("money").value)){
+        //   amt_bet = Number(document.getElementById("money").value)
+        // }
 
         if(isNaN(Number(document.getElementById("currency_form").value)))
         {
@@ -188,14 +188,14 @@
           document.getElementById("currency_form").value = Number(document.getElementById("currency_form").value) - amt_bet;
       }
         if(compare_val == 0){alert("Nobody Won!");}
-      console.log(document.getElementById("currency_form").value);
+      // console.log(document.getElementById("currency_form").value);
 
         for(let i = 0; i < 5; i++)
         {
           document.getElementById("redraw" + (i + 1)).className = "text-green-500 w-1/6";
         }
 
-        console.log(Number(document.getElementById("money").value));
+        // console.log(Number(document.getElementById("money").value));
         if(Number(document.getElementById("money").value) >= 1000)
         {
           document.getElementById("raiseamt").max = Number(document.getElementById("money").value );
@@ -245,7 +245,7 @@
           redraws.splice(redraws.indexOf(event.target.value - 1),1);
           document.getElementById("redraw" + event.target.value).className = "text-green-500 w-1/6";
         }
-        console.log(redraws);
+        // console.log(redraws);
       }
 
       function show_hand()
@@ -277,12 +277,12 @@
 
       function restart_or_continue(){
         if (document.getElementById("state_restart") != null){
-          console.log("restart")
+          // console.log("restart")
           game_restart()
           document.getElementById("state_restart").id = "cont_game"
         }
         else{
-          console.log("cont")
+          // console.log("cont")
           continue_game()
           document.getElementById("cont_game").id = "state_restart"
         }
