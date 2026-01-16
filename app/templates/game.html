@@ -22,7 +22,7 @@
           <input type="hidden" name="currency" id="currency_form" value=0>
           <button type="SUBMIT">LEAVE</button>
         </form>
-        <button id="state_restart">Reroll</button>
+        <!-- <button id="state_restart">Reroll</button> -->
       </div>
 
       <div id='table_with_cards' class="col-span-full position: relative py-3">
@@ -43,6 +43,7 @@
       <div id="buttons">
         <button id="redraw_all_cards" class="">Redraw Selected</button><br>
         <button id="cont">Continue</button>
+        <p id="cont_game" class="hidden"></p>
 
         <div>
           <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
@@ -62,6 +63,9 @@
 
 
     <script>
+
+      window.addEventListener("load",game_restart);
+
       var raise_slider = document.getElementById("raiseamt");
       var output = document.getElementById("raise_num");
       raise_slider.oninput = function(){
@@ -82,9 +86,6 @@
       call.addEventListener("click",modify_bet);
       raise.addEventListener("click",modify_bet);
 
-      var restart = document.getElementById("state_restart");
-      restart.addEventListener("click",game_restart);
-
 
       var redraw1 = document.getElementById("redraw1");
       redraw1.addEventListener("click",player_redraw);
@@ -101,7 +102,10 @@
       redrawall.addEventListener("click", redraw_all);
 
       var cont_game = document.getElementById("cont");
-      cont_game.addEventListener("click",continue_game);
+      cont_game.addEventListener("click",restart_or_continue);
+      
+      
+      
 
       function modify_bet(event)
       {
@@ -269,6 +273,19 @@
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
         document.getElementById("poker_table").innerHTML = '<img id="table_img" src="../static/image/poker table3.png">';
+      }
+
+      function restart_or_continue(){
+        if (document.getElementById("state_restart") != null){
+          console.log("restart")
+          game_restart()
+          document.getElementById("state_restart").id = "cont_game"
+        }
+        else{
+          console.log("cont")
+          continue_game()
+          document.getElementById("cont_game").id = "state_restart"
+        }
       }
 
 
