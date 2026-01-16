@@ -101,8 +101,12 @@ def update_currency():
         return redirect(url_for('login'))
 
     if("currency" in request.form):
-        db.alter_balance(session["username"],int(request.form["currency"]))
-        print(f"altered balance by {request.form['currency']}")
+        balance_change = int(request.form["currency"]) - db.get_balance(session['username'])
+        if balance_change < 0: 
+            balance_change = 0
+        
+        db.alter_balance(session["username"], balance_change)
+        print(f"altered balance by {balance_change}")
     return redirect("/")
 
 @app.route("/login.html")
