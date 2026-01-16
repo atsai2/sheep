@@ -1,110 +1,112 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><span class="text-green-500">Sheep Poker</span><span class="text-red-400"> Start Your Game!</span></title>
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
+    <title>Sheep Poker - Home</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<div class="absolute inset-0 z-0">
-  <div class="absolute inset-0 bg-black/60 z-10"></div>
-  <img src="../static/image/home_bcg1.jpg"  alt="Home Background" class="w-full h-full object-cover">
-</div>
 
-  <nav class="bg-black/30 backdrop-blur sticky top-0 z-50 border-b border-white/10">
-    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
-
-      <div class="flex-1 flex items-center">
-        <div class="bg-white/10 rounded-full flex items-center justify-center mr-3">
-          <img src="/static/images/flag.jpg" class="w-10 rounded-full">
-        </div>
-        <a href="/" class="hover:text-blue-400 transition-colors">
-          <h1 class="text-2xl font-bold tracking-normal">
-            <span><span class="text-green-500">Sheep Poker's </span>Home Page</span>
-          </h1>
-        </a>
-      </div>
-
-      {% if country_data and country_data.get('region_display') %}
-        <div class="hidden md:flex flex-1 justify-center">
-          <span class="text-[2rem] font-bold tracking-[0.2em] uppercase px-4 {{ country_data['font_group'] }}">
-            {{ country_data['region_display'] }}
-          </span>
-        </div>
-      {% endif %}
-
-      <div class="flex-1 flex justify-end gap-6">
-        {% if logged_in %}
-          <a href="{{ url_for('profile') }}" class="flex items-center text-blue-500 transition-transform hover:translate-y-[-4px] text-blue-300 border border-blue-500/30 px-4 py-2 bg-blue-300/10">
-            <span>Profile</span>
-          </a>
-          <a href="{{ url_for('logout') }}" class="flex items-center text-white-700 transition-transform hover:translate-y-[-4px] text-red-400 border border-red-500/30 px-4 py-2 bg-red-300/10">
-            Logout
-          </a>
-        {% else %}
-          <a href="{{ url_for('register') }}" class="flex items-center transition-transform hover:translate-y-[-4px] text-blue-300 border border-white-500/30 px-4 py-2 bg-white-300/10">
-            Register
-          </a>
-          <a href="{{ url_for('login') }}" class="flex items-center text-white-700 transition-transform hover:translate-y-[-4px] text-blue-300 border border-white-500/30 px-4 py-2 bg-white-300/10">
-            Login
-          </a>
-          <a href="{{ url_for('profile') }}" class="flex items-center text-blue-500 transition-transform hover:translate-y-[-4px] text-blue-300 border border-blue-500/30 px-4 py-2 bg-blue-300/10">
-            <span>Profile</span>
-          </a>
-        {% endif %}
-      </div>
-
+<body class="h-screen overflow-hidden text-white relative">
+    
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-black/70 z-10"></div>
+        <img src="../static/image/home_bcg1.jpg" alt="Poker Background" class="w-full h-full object-cover">
     </div>
-  </nav>
+    
+    <div class="relative z-20 h-full flex flex-col">
+        
+        <nav class="bg-black/40 backdrop-blur-sm border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold">
+                    <span class="text-green-400">SHEEP</span> 
+                    <span class="text-red-400">POKER</span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    {% if logged_in %}
+                        <span class="text-gray-300">
+                            {{ current_user }}
+                        </span>
+                        <a href="./logout.html" 
+                           class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg transition-colors">
+                            Logout
+                        </a>
+                    {% else %}
+                        <a href="./login.html" 
+                           class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg transition-colors">
+                            Login
+                        </a>
+                        <a href="./create_account.html" 
+                           class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg transition-colors">
+                            Register
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        
+        <div class="flex-1 flex flex-col justify-center items-center px-4">
+            
+            <div class="text-center mb-12">
+                <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-wider">
+                    <span class="text-green-400">SHEEP</span>
+                    <br>
+                    <span class="text-red-400">POKER</span>
+                </h1>
+            </div>
+            
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+                    
+                    <a href="./setup.html" 
+                       class="bg-black/60 backdrop-blur-md border-2 border-green-400/50 hover:border-green-400 rounded-2xl p-8 transition-all hover:scale-105 hover:shadow-2xl group">
+                        <div class="text-center">
+                            <div class="text-6xl mb-4 text-green-400 group-hover:scale-110 transition-transform">
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2 text-green-300">Play Poker</h2>
+                            <p class="text-gray-400">Start a new game</p>
+                        </div>
+                    </a>
 
-  <nav class="flex-grow flex flex-col justify-center items-center text-center px-4 py-20">
+                    <a href="./bailout.html" 
+                       class="bg-black/60 backdrop-blur-md border-2 border-yellow-400/50 hover:border-yellow-400 rounded-2xl p-8 transition-all hover:scale-105 hover:shadow-2xl group">
+                        <div class="text-center">
+                            <div class="text-6xl mb-4 text-yellow-400 group-hover:scale-110 transition-transform">
+                            </div>
+                            <h2 class="text-2xl font-bold mb-2 text-yellow-300">Bailout</h2>
+                            <p class="text-gray-400">Receive up to 1000 cash</p>
+                        </div>
+                    </a>
+                    
+                </div>
 
-    <h1 class="text-7xl font-white font-black mb-2 drop-shadow-lg">
-      <span class="text-blue-500">SNORE</span>LACKS
-    </h1>
-    <p class="text-2xl mb-10 font-light drop-shadow-md">
-      Where to?
-    </p>
-
-    <form action="{{ url_for('country') }}" method="get" class="w-full max-w-2xl relative group">
-
-      <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 z-10"></i>
-
-      <input type="text" name="keyword" placeholder="Search for a country..." class="w-full bg-white/90 text-gray-900 py-5 pl-14 rounded-2xl focus:outline-blue focus:ring-4 focus:ring-white-500/50 transition-all duration-300">
-
-      <div class="absolute right-3 top-2 bottom-2">
-        <button type="submit" class="h-full bg-blue-500 hover:bg-blue-400 text-white px-6 rounded-xl font-bold shadow-lg">
-          Search
-        </button>
-      </div>
-    </form>
-
-  </nav>
-
-    <br>
-
-    {% block content %}
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="fixed -translate-y-1/2 left-1/2 transform -translate-x-1/2 w-full max-w-md backdrop-blur-md bg-white/10">
-      {% for message in messages %}
-        <div class="flash-container text-2xl text-white px-6 py-3 rounded-lg shadow-lg mb-2 text-center">
-          {{ message }}
+                <div class="mt-12 bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl p-6 max-w-2xl">
+                    <h3 class="text-xl font-bold text-center mb-4 text-blue-300">
+                        How to Play
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm">
+                        <div>
+                            <div class="text-3xl mb-2">1️</div>
+                            <p class="text-gray-300">placeholder</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl mb-2">2️</div>
+                            <p class="text-gray-300">placeholder</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl mb-2">3️</div>
+                            <p class="text-gray-300">placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            
         </div>
-    {% endfor %}
+        
+        
     </div>
-  {% endif %}
-{% endwith %}
-{% endblock %}
+    
 </body>
-
-  <footer>
-
-  </footer>
-
 </html>
