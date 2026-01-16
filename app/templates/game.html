@@ -17,42 +17,47 @@
 
     <script src = "../static/js/game.js"></script>
 
-    <form action = "/update_currency" method="POST">
-      <input type="hidden" name="currency" id="currency_form" value=0>
-      <button type="SUBMIT">LEAVE</button>
-    </form>
-    <button id="state_restart">Reroll</button>
-    <br><br><br>
+    <div class="grid grid-cols-1 justify-self-start">
 
-    <div id='table_with_cards'>
-      <!-- <div id="poker_table"></div> -->
-      <div id ="bot_cards" class="h-[10%] flex flex-wrap flex-row"></div>
-      <div id ="player_cards" class="h-[10%] gap-1 flex flex-wrap"></div>
-    </div>
+      <div class="col-span-full">
+        <form action = "/update_currency" method="POST">
+          <input type="hidden" name="currency" id="currency_form" value=0>
+          <button type="SUBMIT">LEAVE</button>
+        </form>
+        <button id="state_restart">Reroll</button>
+      </div>
+
+      <div id='table_with_cards' class="col-span-full position: relative py-3">
+        <div id="poker_table" class="w-full"></div>
+        <div id ="bot_cards" class="flex flex-wrap flex-row justify-center position: absolute top-0"></div>
+        <div id ="player_cards" class="flex flex-wrap justify-center position: absolute bottom-0"></div>
+      </div>
 
 
-    <div id = "player_redraws" class = 'flex w-full gap-3'>
-      <button id="redraw1" value=1 class="text-green-500">Select Card 1</button><br>
-      <button id="redraw2" value=2 class="text-green-500">Select Card 2</button><br>
-      <button id="redraw3" value=3 class="text-green-500">Select Card 3</button><br>
-      <button id="redraw4" value=4 class="text-green-500">Select Card 4</button><br>
-      <button id="redraw5" value=5 class="text-green-500">Select Card 5</button><br>
-    </div>
+      <div id = "player_redraws" class = 'flex w-full gap-3 col-span-full'>
+        <button id="redraw1" value=1 class="text-green-500">Select Card 1</button><br>
+        <button id="redraw2" value=2 class="text-green-500">Select Card 2</button><br>
+        <button id="redraw3" value=3 class="text-green-500">Select Card 3</button><br>
+        <button id="redraw4" value=4 class="text-green-500">Select Card 4</button><br>
+        <button id="redraw5" value=5 class="text-green-500">Select Card 5</button><br>
+      </div>
 
-    <button id="redraw_all_cards">Redraw Selected</button><br>
-    <button id="cont">Continue</button>
+      <button id="redraw_all_cards">Redraw Selected</button><br>
+      <button id="cont">Continue</button>
 
-    <div>
-      <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
-      <button id="money" value={{currency}}>Current Balance: {{currency}}</button>
-    </div>
+      <div>
+        <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
+        <button id="money" value={{currency}}>Current Balance: {{currency}}</button>
+      </div>
 
-    <div>
-      <button id="call" class = "text-gray-500" value="call">Call</button><br>
-      <!-- <button id="fold">Fold</button> -->
-      <button id="raise" class = "text-gray-500" value="raise">Raise</button>
-      <input id="raiseamt" type = "range" min=50 max=1000 class = "slider">
-      <p>Value: <span id = "raise_num"></span></p>
+      <div>
+        <button id="call" class = "text-gray-500" value="call">Call</button><br>
+        <!-- <button id="fold">Fold</button> -->
+        <button id="raise" class = "text-gray-500" value="raise">Raise</button>
+        <input id="raiseamt" type = "range" min=50 max=1000 class = "slider">
+        <p>Value: <span id = "raise_num"></span></p>
+      </div>
+    
     </div>
 
 
@@ -257,7 +262,7 @@
 
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
-      //  document.getElementById("poker_table").innerHTML = '<img id="table_img" class="scale-110 w-[1600px] absolute right-90" src="../static/image/poker table3.png">';
+        document.getElementById("poker_table").innerHTML = '<img id="table_img" src="../static/image/poker table3.png">';
       }
 
 

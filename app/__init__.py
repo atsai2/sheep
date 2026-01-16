@@ -78,10 +78,16 @@ def logout():
 
 @app.route("/setup", methods=['GET', 'POST'])
 def setup():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     return render_template('setup.html')
 
 @app.route("/game", methods=['GET', 'POST'])
 def game():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+        
     currency = db.get_balance(session['username'])
     if request.method == 'POST':
         starting_balance = request.form['starting_balance'].strip()
@@ -91,6 +97,9 @@ def game():
 
 @app.route("/update_currency", methods = ["GET", "POST"])
 def update_currency():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     if("currency" in request.form):
         db.alter_balance(session["username"],int(request.form["currency"]))
         print(f"altered balance by {request.form['currency']}")

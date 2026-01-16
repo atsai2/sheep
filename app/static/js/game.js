@@ -124,7 +124,7 @@ function hand_to_imgs(hand,state)
     {
       img_link = "../static/image/yellow_back.png"
     }
-    cards += "<img class='scale-50 w-[300px]' src = '" + img_link + "'>";
+    cards += "<img class='scale-50 w-1/6' src = '" + img_link + "'>";
   }
 
   return cards;
