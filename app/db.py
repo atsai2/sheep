@@ -29,14 +29,23 @@ def alter_balance(username, n):
     DB_CURSOR = DB.cursor()
     DB_CURSOR.execute("SELECT COUNT(*) FROM Users WHERE username = (?)", (username,))
     cursorfetch = DB_CURSOR.fetchone()[0]
-    if cursorfetch == 1:
+    if cursorfetch != 1:
         DB.commit()
         DB.close()
         return False
-    DB_CURSOR.execute("UPDATE users balance = balance + (?) WHERE username = (?)", (n, username))
+    balance = get_balance(username)
+    DB_CURSOR.execute("UPDATE users SET balance = balance + (?) WHERE username = (?)", (n, username))
     DB.commit()
     DB.close()
     return True
+
+def get_balance(username):
+    DB_NAME = "Data/data.db"
+    DB = sqlite3.connect(DB_NAME)
+    DB_CURSOR = DB.cursor()
+    DB_CURSOR.execute("SELECT balance FROM Users WHERE username = (?)",(username,))
+    cursorfetch = DB_CURSOR.fetchone()[0]
+    return cursorfetch
 
 def check_password(username, password):
     return password == get_user(username)[1]
