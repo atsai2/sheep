@@ -46,7 +46,8 @@ def get_balance(username):
     DB = sqlite3.connect(DB_NAME)
     DB_CURSOR = DB.cursor()
     DB_CURSOR.execute("SELECT balance FROM Users WHERE username = (?)",(username,))
-    cursorfetch = DB_CURSOR.fetchone()[0]
+
+    cursorfetch = (DB_CURSOR.fetchone())[0]
     return cursorfetch
 
 def check_password(username, password):
