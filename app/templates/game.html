@@ -7,14 +7,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <body>
-    <!-- <div style="display:none">
-      <img id="poker_table" width="220" height="277" src="../static/image/poker table3.png">
-      <img id="yellow_back" width="975" height="1388" src="../static/image/yellow_back.png">
-      <p id="starting_balance">{{starting_balance}}</p>
-      <p id="min_bet">{{min_bet}}</p>
-    </div>
-    <canvas id="canvas1" width="1000" height="500" style="width: 100%; border:1px solid #000000;"></canvas> -->
-
     <script src = "../static/js/game.js"></script>
 
     <div class="grid grid-cols-1 justify-self-start">
@@ -42,20 +34,22 @@
         <button id="redraw5" value=5 class="text-green-500">Select Card 5</button><br>
       </div>
 
-      <button id="redraw_all_cards">Redraw Selected</button><br>
-      <button id="cont">Continue</button>
+      <div id="buttons">
+        <button id="redraw_all_cards">Redraw Selected</button><br>
+        <button id="cont">Continue</button>
 
-      <div>
-        <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
-        <button id="money" value={{currency}}>Current Balance: {{currency}}</button>
-      </div>
+        <div>
+          <!-- <button id="money" value="1000">Current Balance: 1000</button> -->
+          <button id="money" value={{currency}}>Current Balance: {{currency}}</button>
+        </div>
 
-      <div>
-        <button id="call" class = "text-gray-500" value="call">Call</button><br>
-        <!-- <button id="fold">Fold</button> -->
-        <button id="raise" class = "text-gray-500" value="raise">Raise</button>
-        <input id="raiseamt" type = "range" min=50 max=1000 class = "slider">
-        <p>Value: <span id = "raise_num"></span></p>
+        <div>
+          <button id="call" class = "text-gray-500" value="call">Call</button><br>
+          <!-- <button id="fold">Fold</button> -->
+          <button id="raise" class = "text-gray-500" value="raise">Raise</button>
+          <input id="raiseamt" type = "range" min={{min_bet}} max={{currency}} class = "slider">
+          <p>Value: <span id = "raise_num"></span></p>
+        </div>
       </div>
     
     </div>
@@ -74,9 +68,8 @@
       let bot_hand = [];
       let redraws = [];
 
-      let min_bet = 50;
       var money = document.getElementById("money").value;
-      var amt_bet = min_bet;
+        
 
       var call = document.getElementById("call");
       var raise = document.getElementById("raise");
@@ -158,6 +151,15 @@
         document.getElementById("player_cards").innerHTML = player_cards;
         document.getElementById("bot_cards").innerHTML = bot_cards;
 
+        var amt_bet = Number(document.getElementById("raise_num").innerHTML)
+        var min_bet = Number('{{min_bet}}')
+        if(amt_bet < min_bet){
+          amt_bet = min_bet
+        }
+        if(amt_bet > Number(document.getElementById("money").value)){
+          amt_bet = Number(document.getElementById("money").value)
+        }
+
         if(isNaN(Number(document.getElementById("currency_form").value)))
         {
           document.getElementById("currency_form").value = 0;
@@ -165,7 +167,6 @@
 
         if(compare_val > 0){
           alert("Player Won!");
-          console.log(document.getElementById("money").value);
           document.getElementById("money").value = Number(document.getElementById("money").value) + amt_bet;
           document.getElementById("money").innerHTML = "Current Balance: " + String(Number(document.getElementById("money").value));
           document.getElementById("currency_form").value = Number(document.getElementById("currency_form").value) + amt_bet;
