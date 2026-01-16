@@ -28,3 +28,16 @@ jiefengO -- 2026-01-15 12:35
 
 tudorG -- 2026-01-15 6:30
 -Finished poker logic, fixed connectivity between python and javascript files, fixed bugs in code regarding db and js
+
+jiefengO -- 2026-01-15 23:00
+-Added CSS and QoL changes to game.html
+-Fixed bugs with db not being created, bailout system, betting system
+-Removed starting currency from setup.html
+
+jiefengO -- 2026-01-16 1:00
+DD REVISION:
+  Removed leaderboard and profile: not enough time to implement
+  Removed poker.py: poker logic is instead in game.js and game.html's inline js
+  Removed bailout.html: bailout button is in home.html, and does not have $1/click
+  Removed some settings from setup.html
+  Removed animations and canvas from game.js
