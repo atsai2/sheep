@@ -28,3 +28,6 @@ jiefengO -- 2026-01-15 12:35
 
 tudorG -- 2026-01-15 6:30
 -Finished poker logic, fixed connectivity between python and javascript files, fixed bugs in code regarding db and js
+
+mustafaA -- 2026-01-15 7:30
+- Created home page, fixed redirect for html files
