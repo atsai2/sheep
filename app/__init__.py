@@ -26,7 +26,7 @@ def user_context(): # persistent info made avalible for all html templates
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     currency = db.get_balance(session['username'])
-    print(currency);
+    print(currency)
     #return redirect(url_for('login'))
     return render_template("game.html", currency = currency)
 
@@ -94,17 +94,7 @@ def update_currency():
     if("currency" in request.form):
         db.alter_balance(session["username"],int(request.form["currency"]))
         print(f"altered balance by {request.form['currency']}")
-
-
     return redirect("/")
-
-@app.route("/login.html")
-def login_html():
-    return render_template("login.html")
-
-@app.route("/create_account.html")
-def register_html():
-    return render_template("create_account.html")
 
 if __name__ == "__main__":
     app.debug = True
